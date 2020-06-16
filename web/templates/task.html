@@ -1,0 +1,82 @@
+{% load static %}
+<!DOCTYPE html>
+<html ng-app="app">
+    <head>
+        
+        
+        <title>ETM Login</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" rel="stylesheet" id="jqueryui-css">
+        <link  rel="stylesheet" href="{% static 'css/task.css' %}">
+        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-cookies.js"></script>
+        <script src="{% static 'js/app.js' %}"></script>
+    </head>
+    {% verbatim %}
+    <body ng-controller="task" ng-cloak>
+        <div class="page-content page-container" id="page-content">
+            <div class="padding">
+                <div class="row centered-form center-block">
+                    <div class="col-lg-12">
+                        <div class="card px-3">
+                            <div class="card-body">
+                                <div class="card-body">
+                                    
+                                    <div class="dropdown">
+                                        <button class="btn btn-primary" style="float: right;" ng-click="onLogout();">Logout</button>
+                                    </div> 
+                                    
+                                </div>
+                                <hr>
+                                <h4 class="card-title" style="text-align: center;">Task list</h4>
+                                <div class="add-items d-flex">
+                                    <input type="text" class="form-control todo-list-input" placeholder="Task" ng-model="taskName"> 
+                                    <!-- <input type="text" ng-model="date" jqdatepicker  style="width: 20%;" placeholder=" Date"/> -->
+                                    <button class="add btn btn-primary font-weight-bold todo-list-add-btn" ng-click="onAdd();">Add</button>
+                                </div>
+                                <hr>
+                                <div class="list-wrapper">
+                                    <div class="card" ng-repeat="task in tasks" style="background-color:aliceblue;margin-bottom: 10px;">
+                                        <div class="card-header">
+                                            <label>Task owner: {{task.created_by.first_name}} {{task.created_by.last_name}}</label>
+                                            <span style="float: right;">Created on: {{task.created_on | date : format : timezone}}</span>
+                                        </div>
+                                        <div class="card-body">
+                                            <label>{{task.task_name}}</label>
+                                        </div>
+                                        <div class="card-footer">
+                                            <button ng-click="updateProgress(task.id);">Mark task as complete</button>
+                                            <span style="float: right;"><label>{{task.task_status=='IN'?'In progress':'Complete'}}</label></span>
+                                        </div>
+                                        <div>
+                                            <div class="card">
+                                                <div class="card-header">
+                                                    <label>Comments</label>
+                                                </div>
+                                                <div class="card-body">
+                                                    <div ng-repeat="comment in task.Tasks_Comments">
+                                                        {{comment.comment}}
+                                                        <hr>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+    {% endverbatim %}
+</html>
+
+
+
